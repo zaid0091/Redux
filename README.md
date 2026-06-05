@@ -1,16 +1,88 @@
-# React + Vite
+# MediaSearch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React + Vite media discovery app with a premium Pinterest-inspired card experience.
 
-Currently, two official plugins are available:
+Users can search photos, videos, and GIFs, then save favorites to a local collection backed by `localStorage`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Search media across multiple sources
+- Tabbed media explorer: Photos, Videos, GIFs
+- Save items to a local collection page
+- Pinterest-style premium cards for saved content
+- Route-based page loading with React Router
+- Local persistence using `localStorage`
+- Responsive layout with Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies
 
-## Expanding the ESLint configuration
+- React 19
+- Vite
+- Redux Toolkit
+- React Router DOM
+- Tailwind CSS
+- React Toastify
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Setup
+
+### Prerequisites
+
+- Node.js 20+ or compatible runtime
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+This project uses environment variables for API keys.
+Create a `.env` file at the project root and add:
+
+```env
+VITE_UNSPLASH_KEY=your_unsplash_api_key
+VITE_PEXELS_KEY=your_pexels_api_key
+VITE_GIPHY_KEY=your_giphy_api_key
+```
+
+> Important: `.env` is ignored by git. Do not commit your API keys.
+
+### Run locally
+
+```bash
+npm run dev
+```
+
+Open the URL shown in the terminal to use the app.
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+## Project structure
+
+- `src/` — application code
+- `src/api/` — API helpers
+- `src/components/` — reusable UI components
+- `src/pages/` — route views
+- `src/redux/` — Redux store and slices
+
+## Notes
+
+- Saved collection items are persisted in browser `localStorage`
+- Collection page image handling is normalized for legacy saved data
+- If you accidentally push `.env`, remove it from git tracking and keep it local
+
+## License
+
+This project is available under the [MIT License](LICENSE) if you wish to add one.
