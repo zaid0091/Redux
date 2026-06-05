@@ -10,17 +10,16 @@ const ResultCard = ({ item }) => {
 
     const addToCollections = useCallback((e) => {
         e.preventDefault()
-        e.stopPropagation()
         dispatch(addCollection(item))
         showAddedToast()
     }, [dispatch, item])
 
     return (
-        <article className="premium-card group card-hover premium-border">
-            <div className="premium-card__media">
+        <article className="media-card">
+            <div className="media-card__frame">
                 {item.type === 'photo' && (
                     <img
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={item.thumbnail}
                         alt={item.title || 'Photo'}
                         loading="lazy"
@@ -28,7 +27,7 @@ const ResultCard = ({ item }) => {
                 )}
                 {item.type === 'video' && (
                     <video
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={item.src}
                         autoPlay
                         loop
@@ -38,35 +37,30 @@ const ResultCard = ({ item }) => {
                 )}
                 {item.type === 'gif' && (
                     <img
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={item.thumbnail}
                         alt={item.title || 'GIF'}
                         loading="lazy"
                     />
                 )}
-
-                <span className="premium-card__badge">{typeLabels[item.type] || item.type}</span>
-                <div className="premium-card__media-overlay" />
+                <span className="media-card__type">{typeLabels[item.type] || item.type}</span>
             </div>
 
-            <div className="premium-card__content">
-                <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="premium-card__link"
-                    aria-label={`Open ${item.title || 'media'}`}
-                >
-                    <h2 className="premium-card__title">{item.title || 'Untitled'}</h2>
-                </a>
-
-                <div className="premium-card__footer">
-                    <span className="premium-card__meta">Tap to open in a new tab</span>
-                    <button
-                        type="button"
-                        onClick={addToCollections}
-                        className="premium-card__button"
+            <div className="media-card__body">
+                <h2 className="media-card__title">
+                    <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${item.title || 'media'}`}
                     >
+                        {item.title || 'Untitled'}
+                    </a>
+                </h2>
+
+                <div className="media-card__actions">
+                    <span className="media-card__note">Opens in new tab</span>
+                    <button type="button" onClick={addToCollections} className="media-card__action">
                         Save
                     </button>
                 </div>

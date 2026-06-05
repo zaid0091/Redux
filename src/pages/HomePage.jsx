@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar'
 import Tabs from '../components/Tabs'
 import ResultsGrid from '../components/ResultsGrid'
 import ResultCard from '../components/ResultCard'
+import ScrollReveal from '../components/ScrollReveal'
 
 const defaultQueries = ['nature', 'technology', 'travel', 'food', 'architecture', 'abstract', 'ocean', 'mountains']
 
@@ -14,10 +15,10 @@ const HomePage = () => {
     const [defaultQuery] = useState(getRandomQuery)
 
     return (
-        <main className="pb-[var(--space-20)] sm:pb-[var(--space-24)]">
+        <main>
             <SearchBar />
             {query !== '' ? (
-                <section className="fade-in page-container pb-[var(--space-16)] pt-[var(--space-4)]">
+                <section className="page-container" style={{ paddingBottom: 'var(--space-24)' }}>
                     <Tabs />
                     <ResultsGrid />
                 </section>
@@ -44,32 +45,31 @@ const DefaultContent = ({ query }) => {
     const label = query.charAt(0).toUpperCase() + query.slice(1)
 
     return (
-        <section className="page-container pb-[var(--space-24)] featured-section section-stack">
-            <header className="section-header">
-                <span className="section-eyebrow">
-                    <span className="chip-dot" aria-hidden />
-                    Featured collection
-                </span>
-                <h2 className="section-title">
-                    Explore <span className="text-gradient">{label}</span>
-                </h2>
-                <p className="section-desc">
-                    Hand-picked {query} imagery to inspire your next search — refresh the page for a new theme.
-                </p>
-                <div className="chip chip--live">
-                    <span className="chip-dot" aria-hidden />
-                    Live preview
-                </div>
+        <section className="page-container section-divider" style={{ paddingBottom: 'var(--space-24)' }}>
+            <header className="section-head section-head--center">
+                <ScrollReveal as="p" className="section-label" variant="fade" delay={1}>
+                    Curated preview
+                </ScrollReveal>
+                <ScrollReveal as="h2" className="section-heading" variant="up" delay={2}>
+                    {label}
+                </ScrollReveal>
+                <ScrollReveal as="p" className="section-copy" variant="up" delay={3}>
+                    A sample set to browse before you search. Refresh for a different theme.
+                </ScrollReveal>
             </header>
 
-            <div className="card-grid-wrap">
-                <div className="card-grid">
-                    {results.map((item, idx) => (
-                        <div key={item.id} className={`card-grid-item stagger-${(idx % 6) + 1}`}>
-                            <ResultCard item={item} />
-                        </div>
-                    ))}
-                </div>
+            <div className="gallery">
+                {results.map((item, idx) => (
+                    <ScrollReveal
+                        key={item.id}
+                        className="gallery-item"
+                        variant="up"
+                        delay={(idx % 6) + 1}
+                        threshold={0.08}
+                    >
+                        <ResultCard item={item} />
+                    </ScrollReveal>
+                ))}
             </div>
         </section>
     )

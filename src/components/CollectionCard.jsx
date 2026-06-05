@@ -10,28 +10,26 @@ const CollectionCard = ({ item }) => {
 
     const removeFromCollection = useCallback((e) => {
         e.preventDefault()
-        e.stopPropagation()
         dispatch(removeCollection(item.id))
         showRemovedToast()
     }, [dispatch, item.id])
 
     const mediaUrl = item.src || item.thumbnail || item.url || item.image || item.images?.downsized?.url || ''
-    const isVideo = item.type === 'video'
 
     return (
-        <article className="premium-card group card-hover premium-border">
-            <div className="premium-card__media">
+        <article className="media-card">
+            <div className="media-card__frame">
                 {item.type === 'photo' && mediaUrl && (
                     <img
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={mediaUrl}
                         alt={item.title || 'Photo'}
                         loading="lazy"
                     />
                 )}
-                {isVideo && mediaUrl && (
+                {item.type === 'video' && mediaUrl && (
                     <video
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={mediaUrl}
                         autoPlay
                         loop
@@ -41,34 +39,33 @@ const CollectionCard = ({ item }) => {
                 )}
                 {item.type === 'gif' && mediaUrl && (
                     <img
-                        className="premium-card__image"
+                        className="media-card__media"
                         src={mediaUrl}
                         alt={item.title || 'GIF'}
                         loading="lazy"
                     />
                 )}
-
-                <span className="premium-card__badge">{typeLabels[item.type] || item.type}</span>
-                <div className="premium-card__media-overlay" />
+                <span className="media-card__type">{typeLabels[item.type] || item.type}</span>
             </div>
 
-            <div className="premium-card__content">
-                <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="premium-card__link"
-                    aria-label={`Open ${item.title || 'media'}`}
-                >
-                    <h2 className="premium-card__title">{item.title || 'Untitled'}</h2>
-                </a>
+            <div className="media-card__body">
+                <h2 className="media-card__title">
+                    <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${item.title || 'media'}`}
+                    >
+                        {item.title || 'Untitled'}
+                    </a>
+                </h2>
 
-                <div className="premium-card__footer">
-                    <span className="premium-card__meta">Saved to your library</span>
+                <div className="media-card__actions">
+                    <span className="media-card__note">In your library</span>
                     <button
                         type="button"
                         onClick={removeFromCollection}
-                        className="premium-card__button premium-card__button--danger"
+                        className="media-card__action media-card__action--remove"
                     >
                         Remove
                     </button>
